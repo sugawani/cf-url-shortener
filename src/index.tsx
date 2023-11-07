@@ -66,9 +66,6 @@ app.post('/shorten', async (c) => {
 
 app.get('/:key', async (c) => {
     const key = c.req.param('key')
-    if (key == null) {
-        return c.text('hello from hono!')
-    }
     const url = await c.env.URL_BINDING.get(key)
     if (url == null) {
         return c.notFound()
