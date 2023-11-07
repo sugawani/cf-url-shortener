@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { jsx } from 'hono/jsx'
+import qr from 'qr-image'
 
 type Bindings = {
     URL_BINDING: KVNamespace
@@ -52,11 +52,14 @@ app.post('/shorten', async (c) => {
         }
     } while (exists)
 
-    await c.env.URL_BINDING.put(key, url)
+    c.env.URL_BINDING.put(key, url)
+    const shortenURL = `${new URL(c.req.url).origin}/${key}`
+    const QRBase64 = `data:image/png;base64,${qr.imageSync(shortenURL).toString('base64')}`
     return c.html(
         <html>
             <h1>短縮URLが生成されました！</h1>
-            <h2>{new URL(c.req.url).origin}/{key}</h2>
+            <h2>{shortenURL}</h2>
+            <img src={QRBase64} />
         </html>
     )
 })
