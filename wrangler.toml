@@ -1,0 +1,8 @@
+name = "cf-url-shortener"
+compatibility_date = "2023-01-01"
+node_compat = true
+
+[[kv_namespaces]]
+binding = "URL_BINDING"
+id = ""
+preview_id = ""
