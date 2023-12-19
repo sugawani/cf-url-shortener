@@ -52,7 +52,7 @@ app.post('/shorten', async (c) => {
         }
     } while (exists)
 
-    c.env.URL_BINDING.put(key, url)
+    await c.env.URL_BINDING.put(key, url)
     const shortenURL = `${new URL(c.req.url).origin}/${key}`
     const QRBase64 = `data:image/png;base64,${qr.imageSync(shortenURL).toString('base64')}`
     return c.html(
